@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Plan;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -21,8 +23,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'ci_ruc',
+        'telefono',
+        'obligado',
         'email',
         'password',
+        'ruc_contador',
+        'nombre_contador',
+        'role_id',
+        'plan_id',
     ];
 
     /**
@@ -44,4 +53,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relación: Un usuario puede tener muchos planes
+    public function plans(): HasMany
+    {
+        return $this->hasMany(Plan::class);
+    }
 }
