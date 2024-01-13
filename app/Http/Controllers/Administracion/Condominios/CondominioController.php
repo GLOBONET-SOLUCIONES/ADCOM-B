@@ -36,7 +36,6 @@ class CondominioController extends Controller
 
 
         $this->validate($request, [
-            'user_id' => 'required',
             'ruc_condominio' => 'required|max:13',
             'name_condominio' => 'required|string|max:200',
             'cod_condominio' => 'required',
@@ -48,36 +47,35 @@ class CondominioController extends Controller
             'ciudad' => 'required',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg',
 
-            'ci_ruc' => 'required|min:10|max:13',
-            'name' => 'required',
-            'telefono' => 'required',
-            'email' => 'required|email',
-            'obligado' => 'required',
-            'ruc_contador' => 'nullable|max:13',
-            'nombre_contador' => 'nullable|string',
         ]);
 
 
 
         if ($request->id) {
             $condominios = Condominio::find($request->id);
-            $admin = User::find($user->id);
         } else {
             $condominios = new Condominio();
-            $admin = new User();
+
+            if ($user->lim_condominios === 0) {
+                return response()->json(['message' => 'Has alacanzado el límite asignado'], 401);
+            } else {
+                $limCondominios = $user->lim_condominios - 1;
+            }
         }
 
-        if ($user->hasRole('SuperAdmin') || $user->hasRole('Admin')) {
+
+        if ($user->hasRole('Admin')) {
 
             $condominios->ruc_condominio = $request->ruc_condominio;
             $condominios->name_condominio = $request->name_condominio;
             $condominios->cod_condominio = $request->cod_condominio;
             $condominios->calle_principal = $request->calle_principal;
             $condominios->numeracion = $request->numeracion;
+            $condominios->calle_secundaria = $request->calle_secundaria;
             $condominios->sector = $request->sector;
             $condominios->telefono = $request->telefono;
             $condominios->ciudad = $request->ciudad;
-            $condominios->user_id = $request->user_id;
+            $condominios->user_id = $user->id;
 
             if ($request->hasFile('logo')) {
 
@@ -85,14 +83,23 @@ class CondominioController extends Controller
                 $condominios->logo = $logoPath;
             }
 
-            $admin->ci_ruc = $request->ci_ruc;
-            $admin->name = $request->name;
-            $admin->telefono = $request->telefono;
-            $admin->email = $request->email;
-            $admin->obligado = $request->obligado;
-            $admin->ruc_contador = $request->ruc_contador;
-            $admin->nombre_contador = $request->nombre_contador;
+            $admin = User::find($user->id);
 
+            $admin->ci_ruc = $user->ci_ruc;
+            $admin->name = $user->name;
+            $admin->telefono = $user->telefono;
+            $admin->email = $user->email;
+            $admin->obligado = $user->obligado;
+            $admin->ruc_contador = $user->ruc_contador;
+            $admin->nombre_contador = $user->nombre_contador;
+            $admin->lim_condominios = $limCondominios;
+            $admin->lim_subusuarios = $user->lim_subusuarios;
+            $admin->plan = $user->plan;
+            $admin->plan_act = $user->plan_act;
+            $admin->plan_ant = $user->plan_ant;
+            $admin->fecha_inicio = $user->fecha_inicio;
+            $admin->fecha_final = $user->fecha_final;
+            $admin->password = $user->password;
 
             $admin->save();
             $condominios->save();

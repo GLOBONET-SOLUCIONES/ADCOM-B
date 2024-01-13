@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('cod_condominio');
             $table->string('calle_principal');
             $table->string('numeracion');
-            $table->string('calle_secundaria');
-            $table->string('sector');   
+            $table->string('calle_secundaria')->nullable();
+            $table->string('sector');
             $table->string('telefono');
             $table->string('ciudad');
             $table->string('logo')->nullable();
