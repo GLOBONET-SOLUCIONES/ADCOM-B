@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Condominios\Condominio;
+use App\Models\Plan;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +17,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,8 +25,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'ci_ruc',
+        'telefono',
+        'obligado',
         'email',
         'password',
+        'ruc_contador',
+        'nombre_contador',
+        'role_id',
+        'plan_id',
     ];
 
     /**
@@ -52,5 +60,11 @@ class User extends Authenticatable
     public function condominios(): HasMany
     {
         return $this->hasMany(Condominio::class);
+    }
+
+    // Relación: Un usuario puede tener muchos planes
+    public function plans(): HasMany
+    {
+        return $this->hasMany(Plan::class);
     }
 }

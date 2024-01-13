@@ -24,5 +24,8 @@ class DatabaseSeeder extends Seeder
 
         // Usuarios Base
         $this->call(UserSeeder::class);
+
+        // Plan inicial
+        $this->call(PlanSeeder::class);
     }
 }
