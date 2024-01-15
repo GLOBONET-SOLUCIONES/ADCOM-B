@@ -12,7 +12,6 @@ class Plan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'nombre',
         'licencia',
         'lim_condominios',
