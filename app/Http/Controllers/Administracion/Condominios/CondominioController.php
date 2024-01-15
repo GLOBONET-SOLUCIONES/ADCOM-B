@@ -45,6 +45,13 @@ class CondominioController extends Controller
             'sector' => 'nullable',
             'telefono' => 'required|max:10',
             'ciudad' => 'required',
+            'ci_admin' => 'required|max:13',
+            'name_admin' => 'required|string|max:200',
+            'telefono_admin' => 'required|max:10',
+            'email_admin' => 'required',
+            'obligado' => 'nullable',
+            'ruc_contador' => 'nullable|max:13',
+            'nombre_contador' => 'nullable|string|max:200',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg',
 
         ]);
@@ -56,16 +63,17 @@ class CondominioController extends Controller
         } else {
             $condominios = new Condominio();
 
-            if ($user->lim_condominios === 0) {
-                return response()->json(['message' => 'Has alacanzado el límite asignado'], 401);
-            } else {
-                $limCondominios = $user->lim_condominios - 1;
-            }
+            // if ($user->lim_condominios === 0) {
+            //     return response()->json(['message' => 'Has alacanzado el límite asignado'], 401);
+            // } else {
+            //     $limCondominios = $user->lim_condominios - 1;
+            // }
         }
 
 
         if ($user->hasRole('Admin')) {
 
+            $condominios->user_id = $user->id;
             $condominios->ruc_condominio = $request->ruc_condominio;
             $condominios->name_condominio = $request->name_condominio;
             $condominios->cod_condominio = $request->cod_condominio;
@@ -75,7 +83,13 @@ class CondominioController extends Controller
             $condominios->sector = $request->sector;
             $condominios->telefono = $request->telefono;
             $condominios->ciudad = $request->ciudad;
-            $condominios->user_id = $user->id;
+            $condominios->ci_admin = $request->ci_admin;
+            $condominios->name_admin = $request->name_admin;
+            $condominios->telefono_admin = $request->telefono_admin;
+            $condominios->email_admin = $request->email_admin;
+            $condominios->obligado = $request->obligado;
+            $condominios->ruc_contador = $request->ruc_contador;
+            $condominios->nombre_contador = $request->nombre_contador;
 
             if ($request->hasFile('logo')) {
 
@@ -83,31 +97,31 @@ class CondominioController extends Controller
                 $condominios->logo = $logoPath;
             }
 
-            $admin = User::find($user->id);
+            // $admin = User::find($user->id);
 
-            $admin->ci_ruc = $user->ci_ruc;
-            $admin->name = $user->name;
-            $admin->telefono = $user->telefono;
-            $admin->email = $user->email;
-            $admin->obligado = $user->obligado;
-            $admin->ruc_contador = $user->ruc_contador;
-            $admin->nombre_contador = $user->nombre_contador;
-            $admin->lim_condominios = $limCondominios;
-            $admin->lim_subusuarios = $user->lim_subusuarios;
-            $admin->plan = $user->plan;
-            $admin->plan_act = $user->plan_act;
-            $admin->plan_ant = $user->plan_ant;
-            $admin->fecha_inicio = $user->fecha_inicio;
-            $admin->fecha_final = $user->fecha_final;
-            $admin->password = $user->password;
+            // $admin->ci_ruc = $user->ci_ruc;
+            // $admin->name = $user->name;
+            // $admin->telefono = $user->telefono;
+            // $admin->email = $user->email;
+            // $admin->obligado = $user->obligado;
+            // $admin->ruc_contador = $user->ruc_contador;
+            // $admin->nombre_contador = $user->nombre_contador;
+            // $admin->lim_condominios = $limCondominios;
+            // $admin->lim_subusuarios = $user->lim_subusuarios;
+            // $admin->plan = $user->plan;
+            // $admin->plan_act = $user->plan_act;
+            // $admin->plan_ant = $user->plan_ant;
+            // $admin->fecha_inicio = $user->fecha_inicio;
+            // $admin->fecha_final = $user->fecha_final;
+            // $admin->password = $user->password;
 
-            $admin->save();
+            // $admin->save();
             $condominios->save();
 
             return response()->json([
                 'message' => 'El registro ha sido guardado correctamente',
                 'condominios' => $condominios,
-                'admin' => $admin,
+                // 'admin' => $admin,
             ]);
         } else {
             return response()->json(['message' => 'No tiene los permisos necesarios'], 401);

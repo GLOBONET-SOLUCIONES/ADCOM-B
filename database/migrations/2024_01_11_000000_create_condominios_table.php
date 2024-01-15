@@ -20,9 +20,16 @@ return new class extends Migration
             $table->string('calle_principal');
             $table->string('numeracion');
             $table->string('calle_secundaria')->nullable();
-            $table->string('sector');
+            $table->string('sector')->nullable();
             $table->string('telefono');
             $table->string('ciudad');
+            $table->string('ci_admin');
+            $table->string('name_admin');
+            $table->string('telefono_admin');
+            $table->string('email_admin');
+            $table->enum('obligado', ['SI', 'NO']);
+            $table->string('ruc_contador')->nullable();
+            $table->string('nombre_contador')->nullable();
             $table->string('logo')->nullable();
             $table->timestamps();
         });

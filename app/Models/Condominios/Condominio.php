@@ -22,6 +22,13 @@ class Condominio extends Model
         'sector',
         'telefono',
         'ciudad',
+        'ci_admin',
+        'name_admin',
+        'telefono_admin',
+        'email_admin',
+        'obligado',
+        'ruc_contador',
+        'nombre_contador',
         'logo',
 
     ];
