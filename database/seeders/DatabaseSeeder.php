@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         // Roles y Permisos
         $this->call(RoleSeeder::class);
 
-        // Usuarios Base
-        $this->call(UserSeeder::class);
-
         // Plan inicial
         $this->call(PlanSeeder::class);
+        
+        // Usuarios Base
+        $this->call(UserSeeder::class);
     }
 }

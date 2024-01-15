@@ -47,7 +47,6 @@ class PlanController extends Controller
             $plan->lim_condominios = $request->lim_condominios;
             $plan->lim_subusuarios = $request->lim_subusuarios;
             $plan->precio = $request->precio;
-            $plan->user_id = $user->id;
 
             $plan->save();
 
