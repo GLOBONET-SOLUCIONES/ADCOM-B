@@ -25,15 +25,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'ci_ruc',
-        'telefono',
-        'obligado',
         'email',
         'password',
-        'ruc_contador',
-        'nombre_contador',
         'role_id',
         'plan_id',
+        'admin_id',
+        'en_condominios',
+        'en_inmuebles',
+        'perm_modulos',
+        'perm_acciones',
     ];
 
     /**

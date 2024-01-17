@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Condominios\Condominio;
+use App\Models\Plan;
 use App\Models\User;
 use PharIo\Manifest\Author;
 
@@ -21,7 +22,7 @@ class CondominioController extends Controller
         $user = auth()->user();
 
         // Lamada a los condominios en orden
-        $condominios = Condominio::where('user_id', $user->id)->orderBy('id', 'desc')->get();
+        $condominios = Condominio::where('user_id', $user->admin_id)->orderBy('id', 'desc')->get();
 
         return response()->json([
             'condominios' => $condominios
@@ -62,17 +63,16 @@ class CondominioController extends Controller
             $condominios = Condominio::find($request->id);
         } else {
             $condominios = new Condominio();
-
-            // if ($user->lim_condominios === 0) {
-            //     return response()->json(['message' => 'Has alacanzado el límite asignado'], 401);
-            // } else {
-            //     $limCondominios = $user->lim_condominios - 1;
-            // }
         }
 
+        $var1 = Condominio::where('user_id', $user->admin_id)->count();
+        $var2 = Plan::where('id', $user->plan_id)->first();
 
-        if ($user->hasRole('Admin')) {
 
+        if ($var1 >= $var2->lim_condominios) {
+
+            return response()->json(['message' => 'Ha alcanzado el limite de su plan'], 401);
+        } else {
             $condominios->user_id = $user->id;
             $condominios->ruc_condominio = $request->ruc_condominio;
             $condominios->name_condominio = $request->name_condominio;
@@ -97,34 +97,13 @@ class CondominioController extends Controller
                 $condominios->logo = $logoPath;
             }
 
-            // $admin = User::find($user->id);
-
-            // $admin->ci_ruc = $user->ci_ruc;
-            // $admin->name = $user->name;
-            // $admin->telefono = $user->telefono;
-            // $admin->email = $user->email;
-            // $admin->obligado = $user->obligado;
-            // $admin->ruc_contador = $user->ruc_contador;
-            // $admin->nombre_contador = $user->nombre_contador;
-            // $admin->lim_condominios = $limCondominios;
-            // $admin->lim_subusuarios = $user->lim_subusuarios;
-            // $admin->plan = $user->plan;
-            // $admin->plan_act = $user->plan_act;
-            // $admin->plan_ant = $user->plan_ant;
-            // $admin->fecha_inicio = $user->fecha_inicio;
-            // $admin->fecha_final = $user->fecha_final;
-            // $admin->password = $user->password;
-
-            // $admin->save();
             $condominios->save();
 
             return response()->json([
                 'message' => 'El registro ha sido guardado correctamente',
                 'condominios' => $condominios,
-                // 'admin' => $admin,
             ]);
-        } else {
-            return response()->json(['message' => 'No tiene los permisos necesarios'], 401);
+            
         }
     }
 

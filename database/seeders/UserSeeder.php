@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'plan_id' => '1',
             'admin_id' => '1',
+            'role_id' => '1',
             'en_condominios' => null,
             'en_inmuebles' => null,
             'perm_modulos' => null,

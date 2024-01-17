@@ -38,6 +38,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('usuarios', UserController::class);
     Route::get('/usuarios-recursos', [UserController::class, 'recursos']);
 
+    // Rutas de subusarios
+    Route::get('subusuarios', [UserController::class, 'indexSubUser']);
+    Route::post('subusuarios', [UserController::class, 'storeSubUser']);
+    Route::get('subusuarios/{id}', [UserController::class, 'showSubUser']);
+    Route::delete('subusuarios/{id}', [UserController::class, 'destroySubUser']);
+    // Route::put('subusuarios/{id}', [UserController::class, 'storeSubUser']);
+
     Route::post('logout', [AuthController::class, 'logout']);
 
     // Ruta Condominio

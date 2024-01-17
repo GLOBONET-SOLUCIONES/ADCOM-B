@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('admin_id');
             $table->foreignId('plan_id')->constrained();
+            $table->foreignId('role_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('en_condominios')->nullable();
@@ -36,6 +37,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
 
             $table->dropForeign(['plan_id']);
+            $table->dropForeign(['role_id']);
         });
 
         Schema::dropIfExists('users');
