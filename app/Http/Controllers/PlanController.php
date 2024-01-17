@@ -11,7 +11,7 @@ class PlanController extends Controller
     {
         $user = auth()->user();
 
-        $planes = Plan::where('user_id', $user->id)->orderBy('id','desc')->get();
+        $planes = Plan::orderBy('id','desc')->get();
 
         return response()->json([
             'planes' => $planes

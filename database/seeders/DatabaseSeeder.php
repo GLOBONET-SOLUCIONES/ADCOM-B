@@ -27,5 +27,8 @@ class DatabaseSeeder extends Seeder
         
         // Usuarios Base
         $this->call(UserSeeder::class);
+
+        // Modulos Base
+        $this->call(ModuloSeeder::class);
     }
 }
