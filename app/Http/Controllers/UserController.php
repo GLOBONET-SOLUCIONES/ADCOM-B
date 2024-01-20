@@ -20,7 +20,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         // Lamada a los usuarios en orden
-        $users = User::where('admin_id', $user->admin_id)->orderBy('id','desc')->get();
+        $users = User::where('admin_id', $user->admin_id)->orderBy('id', 'desc')->get();
 
         return response()->json([
             'users' => $users
@@ -30,8 +30,8 @@ class UserController extends Controller
     public function recursos()
     {
         $user = auth()->user();
-        $roles =  DB::table('roles')->orderBy('name','asc')->get();
-        
+        $roles =  DB::table('roles')->orderBy('name', 'asc')->get();
+
         return response()->json([
             'roles' => $roles,
         ]);
@@ -41,7 +41,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $userAuth = auth()->user();
-    
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:100',
@@ -52,7 +52,7 @@ class UserController extends Controller
             'perm_modulos' => 'nullable',
             'perm_acciones' => 'nullable',
         ]);
-    
+
         if ($request->id) {
             $user = User::find($request->id);
         } else {
@@ -60,22 +60,22 @@ class UserController extends Controller
 
             $user->plan_id = $request->plan_id;
         }
-        
+
         if ($userAuth->role_id === 1) {
 
             $plan = Plan::find($request->plan_id);
-    
+
             // Verificar si se encontró el plan
             if (!$plan) {
                 return response()->json(['message' => 'El plan no existe'], 404);
             } else {
-    
+
                 $role = DB::table('roles')->where('id', 2)->first();
 
                 if (!$role) {
                     return response()->json(['message' => 'El rol no existe'], 404);
                 }
-    
+
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->password = Hash::make($request->password);
@@ -85,8 +85,8 @@ class UserController extends Controller
                 $user->perm_acciones = null;
                 $user->admin_id = $userAuth->id;
                 $user->role_id = $role->id;
-    
-                
+
+
                 $user->save();
 
 
@@ -95,18 +95,17 @@ class UserController extends Controller
 
                 $user->save();
             }
-    
+
             return response()->json([
                 'message' => 'El usuario ha sido guardado exitosamente',
                 'user' => $user,
             ]);
-    
         } else {
-    
+
             return response()->json(['message' => 'No tiene los permisos necesarios'], 401);
         }
     }
-    
+
 
     public function show(string $id)
     {
@@ -139,7 +138,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $subusers = User::where('admin_id', $user->admin_id)->where('plan_id', $user->plan_id)->orderBy('id','desc')->get();
+        $subusers = User::where('admin_id', $user->admin_id)->where('plan_id', $user->plan_id)->orderBy('id', 'desc')->get();
 
         return response()->json([
             'subusers' => $subusers
@@ -149,7 +148,7 @@ class UserController extends Controller
     public function storeSubUser(Request $request)
     {
         $userAuth = auth()->user();
-    
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:100',
@@ -159,7 +158,7 @@ class UserController extends Controller
             'perm_modulos' => 'nullable|string',
             'perm_acciones' => 'nullable|string',
         ]);
-    
+
         if ($request->id) {
             $subuser = User::find($request->id);
         } else {
