@@ -5,6 +5,12 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Condominios\Condominio;
+use App\Models\Configuracion\AdminFirma;
+use App\Models\Configuracion\AreaComunale;
+use App\Models\Configuracion\FirmaEmail;
+use App\Models\Configuracion\PresidenteTesorero;
+use App\Models\Configuracion\Relacione;
+use App\Models\Configuracion\Secuenciale;
 use App\Models\Plan;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -66,5 +72,41 @@ class User extends Authenticatable
     public function plans(): HasMany
     {
         return $this->hasMany(Plan::class);
+    }
+
+    // Relación: Un usuario puede tener muchas relaciones familiares
+    public function relacionesFamiliares(): HasMany
+    {
+        return $this->hasMany(Relacione::class);
+    }
+
+    // Relación: Un usuario puede tener muchas secuencias
+    public function secuencialesDocumentos(): HasMany
+    {
+        return $this->hasMany(Secuenciale::class);
+    }
+
+    // Relación: Un usuario puede tener muchas firmas
+    public function firmaAdministradores(): HasMany
+    {
+        return $this->hasMany(AdminFirma::class);
+    }
+
+    // Relación: Un usuario puede tener muchas presidentes y tesoreros
+    public function presiTesoreros(): HasMany
+    {
+        return $this->hasMany(PresidenteTesorero::class);
+    }
+
+    // Relación: Un usuario puede tener muchas areas comunales
+    public function areasComunales(): HasMany
+    {
+        return $this->hasMany(AreaComunale::class);
+    }
+
+    // Relación: Un usuario puede tener muchas firmas_email
+    public function firmaEmails(): HasMany
+    {
+        return $this->hasMany(FirmaEmail::class);
     }
 }

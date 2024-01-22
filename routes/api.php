@@ -1,13 +1,18 @@
 <?php
 
 use App\Http\Controllers\Administracion\Condominios\CondominioController;
+use App\Http\Controllers\Administracion\Configuracion\AdminFirmaController;
+use App\Http\Controllers\Administracion\Configuracion\AreaComunaleController;
+use App\Http\Controllers\Administracion\Configuracion\BancoController;
+use App\Http\Controllers\Administracion\Configuracion\FirmaEmailController;
+use App\Http\Controllers\Administracion\Configuracion\PresidenteTesoreroController;
+use App\Http\Controllers\Administracion\Configuracion\RelacioneController;
+use App\Http\Controllers\Administracion\Configuracion\SecuencialeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +57,25 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Rutas Planes
     Route::apiResource('planes', PlanController::class);
+
+    // Rutas Relaciones Familiares
+    Route::apiResource('relaciones-familiares', RelacioneController::class);
+
+    // Rutas Secuenciales de Documentos
+    Route::apiResource('secuencias-documentos', SecuencialeController::class);
+
+    // Rutas Firma Administrador
+    Route::apiResource('firma-administrador', AdminFirmaController::class);
+
+    // Rutas Nombre Presidente y Tesorero
+    Route::apiResource('nombre-presi-teso', PresidenteTesoreroController::class);
+
+    // Rutas Cuentas Bancarias
+    Route::apiResource('bancos', BancoController::class);
+
+    // Rutas Areas Comunales
+    Route::apiResource('areas-comunales', AreaComunaleController::class);
+
+    // Rutas Firma Administrador Email
+    Route::apiResource('firma-email', FirmaEmailController::class);
 });

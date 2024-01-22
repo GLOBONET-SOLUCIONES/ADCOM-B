@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Configuracion\Relacione;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -92,6 +93,30 @@ class UserController extends Controller
 
                 $user->admin_id = $user->id;
                 $user->assignRole('Admin');
+
+
+                $relacionExist = Relacione::where('user_id', $user->admin_id)->first();
+
+                if (!$relacionExist) {
+
+                    $relaciones = [
+                        "PROPIETARIO",
+                        "CONYUGE",
+                        "HIJO",
+                        "HERMANO",
+                        "NIETO",
+                        "SUEGRO",
+                        "ARRENDATARIO",
+                        "TIA",
+                    ];
+
+                    foreach ($relaciones as $relacion) {
+                        $relFamiliar = new Relacione;
+                        $relFamiliar->relacion = $relacion;
+                        $relFamiliar->user_id = $user->admin_id;
+                        $relFamiliar->save();
+                    }
+                }
 
                 $user->save();
             }
