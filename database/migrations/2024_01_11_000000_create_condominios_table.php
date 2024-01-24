@@ -30,6 +30,8 @@ return new class extends Migration
             $table->enum('obligado', ['SI', 'NO']);
             $table->string('ruc_contador')->nullable();
             $table->string('nombre_contador')->nullable();
+            $table->string('firma_electronica')->nullable();
+            $table->string('clave_firma')->nullable();
             $table->string('logo')->nullable();
             $table->timestamps();
         });

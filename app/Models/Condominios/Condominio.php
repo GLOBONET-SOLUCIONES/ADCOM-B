@@ -3,6 +3,7 @@
 namespace App\Models\Condominios;
 
 use App\Models\User;
+use App\Models\Inmueble\Inmueble;
 use App\Models\Configuracion\Relacione;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Configuracion\AdminFirma;
@@ -36,6 +37,8 @@ class Condominio extends Model
         'obligado',
         'ruc_contador',
         'nombre_contador',
+        'firma_electronica',
+        'clave_firma',
         'logo',
 
     ];
@@ -44,6 +47,12 @@ class Condominio extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Relación: Un inmueble tiene muchos condominios
+    public function condominios(): HasMany
+    {
+        return $this->hasMany(Inmueble::class);
     }
 
     // // Relación: Un condominio puede tener muchas relaciones familiares

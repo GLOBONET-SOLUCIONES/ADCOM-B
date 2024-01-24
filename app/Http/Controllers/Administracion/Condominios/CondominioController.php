@@ -53,6 +53,8 @@ class CondominioController extends Controller
             'obligado' => 'nullable',
             'ruc_contador' => 'nullable|max:13',
             'nombre_contador' => 'nullable|string|max:200',
+            'firma_electronica' => 'nullable',
+            'clave_firma' => 'nullable',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg',
 
         ]);
@@ -73,7 +75,7 @@ class CondominioController extends Controller
 
             return response()->json(['message' => 'Ha alcanzado el limite de su plan'], 401);
         } else {
-            $condominios->user_id = $user->id;
+            $condominios->user_id = $user->admin_id;
             $condominios->ruc_condominio = $request->ruc_condominio;
             $condominios->name_condominio = $request->name_condominio;
             $condominios->cod_condominio = $request->cod_condominio;
@@ -90,6 +92,12 @@ class CondominioController extends Controller
             $condominios->obligado = $request->obligado;
             $condominios->ruc_contador = $request->ruc_contador;
             $condominios->nombre_contador = $request->nombre_contador;
+            if ($request->hasFile('firma_electronica')) {
+
+                $firmaPath = $request->file('firma_electronica')->store('firmas', 'public');
+                $condominios->firma_electronica = $firmaPath;
+            }
+            $condominios->clave_firma = $request->clave_firma;
 
             if ($request->hasFile('logo')) {
 
@@ -103,7 +111,6 @@ class CondominioController extends Controller
                 'message' => 'El registro ha sido guardado correctamente',
                 'condominios' => $condominios,
             ]);
-            
         }
     }
 

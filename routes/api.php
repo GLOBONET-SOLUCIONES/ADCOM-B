@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Administracion\Condominios\CondominioController;
 use App\Http\Controllers\Administracion\Configuracion\AdminFirmaController;
 use App\Http\Controllers\Administracion\Configuracion\AreaComunaleController;
 use App\Http\Controllers\Administracion\Configuracion\BancoController;
@@ -8,11 +7,15 @@ use App\Http\Controllers\Administracion\Configuracion\FirmaEmailController;
 use App\Http\Controllers\Administracion\Configuracion\PresidenteTesoreroController;
 use App\Http\Controllers\Administracion\Configuracion\RelacioneController;
 use App\Http\Controllers\Administracion\Configuracion\SecuencialeController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PlanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Administracion\Inmueble\InmuebleController;
+use App\Http\Controllers\Administracion\Inmueble\ResidenteController;
+use App\Http\Controllers\Administracion\Inmueble\PropietarioController;
+use App\Http\Controllers\Administracion\Condominios\CondominioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Ruta Condominio
     Route::apiResource('condominios', CondominioController::class);
+
+    // Ruta Propietario
+    Route::apiResource('propietarios', PropietarioController::class);
+
+    // Ruta Residente
+    Route::apiResource('residentes', ResidenteController::class);
+
+    // Ruta Inmueble
+    Route::apiResource('inmuebles', InmuebleController::class);
 
     // Rutas Planes
     Route::apiResource('planes', PlanController::class);
