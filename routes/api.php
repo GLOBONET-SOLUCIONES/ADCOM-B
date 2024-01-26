@@ -16,6 +16,7 @@ use App\Http\Controllers\Administracion\Inmueble\InmuebleController;
 use App\Http\Controllers\Administracion\Inmueble\ResidenteController;
 use App\Http\Controllers\Administracion\Inmueble\PropietarioController;
 use App\Http\Controllers\Administracion\Condominios\CondominioController;
+use App\Http\Controllers\Administracion\PlanCuentas\PlanCuentasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,4 +91,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Rutas Firma Administrador Email
     Route::apiResource('firma-email', FirmaEmailController::class);
+
+    // Rutas Plan de cuentas
+    Route::apiResource('plancuentas', PlanCuentasController::class);
 });
