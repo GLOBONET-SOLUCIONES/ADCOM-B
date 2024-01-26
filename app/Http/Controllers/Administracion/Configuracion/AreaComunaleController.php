@@ -23,7 +23,7 @@ class AreaComunaleController extends Controller
         
         $areasComunales = AreaComunale::where('condominio_id', $propiedad->id)
             ->where('user_id', $user->admin_id)
-            ->orderBy('id', 'desc')->get();
+            ->get();
 
         return response()->json([
             'areasComunales' => $areasComunales
