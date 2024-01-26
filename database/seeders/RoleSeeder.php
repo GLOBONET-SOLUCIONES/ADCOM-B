@@ -21,10 +21,64 @@ class RoleSeeder extends Seeder
         // Register
         Permission::create(['name' => 'register'])->syncRoles([$superadmin]);
 
-        // Permisos
-        Permission::create(['name' => 'listar'])->syncRoles([$superadmin]);
-        Permission::create(['name' => 'crear'])->syncRoles([$superadmin]);
-        Permission::create(['name' => 'editar'])->syncRoles([$superadmin]);
-        Permission::create(['name' => 'eliminar'])->syncRoles([$superadmin]);
+        // Permisos Condominios (Propiedades)
+        Permission::create(['name' => 'listar_propiedades'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_propiedades'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_propiedades'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_propiedades'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Relaciones Familiares
+        Permission::create(['name' => 'listar_relaciones_familiares'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_relaciones_familiares'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_relaciones_familiares'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_relaciones_familiares'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Secuenciales de Documentos
+        Permission::create(['name' => 'listar_secuenciales_documentos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_secuenciales_documentos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_secuenciales_documentos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_secuenciales_documentos'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Firma Administradores
+        Permission::create(['name' => 'listar_firma_admin'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_firma_admin'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_firma_admin'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_firma_admin'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Presidentes y Tesoreros
+        Permission::create(['name' => 'listar_presidentes_tesoreros'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_presidentes_tesoreros'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_presidentes_tesoreros'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_presidentes_tesoreros'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Bancos
+        Permission::create(['name' => 'listar_bancos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_bancos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_bancos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_bancos'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Areas Comunales
+        Permission::create(['name' => 'listar_areas_comunales'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_areas_comunales'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_areas_comunales'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_areas_comunales'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Firma Administradores Email
+        Permission::create(['name' => 'listar_firma_admin_email'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_firma_admin_email'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_firma_admin_email'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_firma_admin_email'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Proveedores
+        Permission::create(['name' => 'listar_proveedores'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_proveedores'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_proveedores'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_proveedores'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Empleados
+        Permission::create(['name' => 'listar_empleados'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_empleados'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_empleados'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_empleados'])->syncRoles([$superadmin, $admin]);
     }
 }

@@ -47,11 +47,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:100',
             'password' => 'required|min:5',
+            'confirmed_password' => 'nullable|min:5',
             'plan_id' => 'required',
             'en_condominios' => 'nullable',
             'en_inmuebles' => 'nullable',
             'perm_modulos' => 'nullable',
             'perm_acciones' => 'nullable',
+            'inactivo' => 'nullable|in:SI,NO',
+            'fecha_inactivo' => 'nullable',
         ]);
 
         if ($request->id) {
@@ -80,6 +83,9 @@ class UserController extends Controller
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->password = Hash::make($request->password);
+                $user->confirmed_password = $user->password;
+                $user->inactivo = "NO";
+                $user->fecha_inactivo = null;
                 $user->en_condominios = null;
                 $user->en_inmuebles = null;
                 $user->perm_modulos = null;
@@ -178,10 +184,13 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:100',
             'password' => 'required|min:5',
+            'confirmed_password' => 'required|min:5',
             'en_condominios' => 'nullable|string',
             'en_inmuebles' => 'nullable|string',
             'perm_modulos' => 'nullable|string',
             'perm_acciones' => 'nullable|string',
+            'inactivo' => 'nullable|in:SI,NO',
+            'fecha_inactivo' => 'nullable',
         ]);
 
         if ($request->id) {
@@ -211,6 +220,21 @@ class UserController extends Controller
         $subuser->email = $request->email;
         $subuser->password = Hash::make($request->password);
         $subuser->role_id = $role->id;
+
+        if ($request->confirmed_password === $request->password) {
+            $subuser->confirmed_password = Hash::make($request->confirmed_password);
+        } else {
+            return response()->json(['message' => 'Las claves ingresadas no coinciden'], 404);
+        }
+
+        $subuser->inactivo = $request->inactivo;
+        
+        if ($subuser->inactivo === 'SI') {
+            $subuser->fecha_inactivo = now();
+        } else {
+            $subuser->fecha_inactivo = null;
+            $subuser->inactivo = "NO";
+        }
 
         // Convertir los campos de selección a formato JSON
         $subuser->en_condominios = json_encode($request->en_condominios);

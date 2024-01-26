@@ -7,8 +7,11 @@ namespace App\Models;
 use App\Models\Condominios\Condominio;
 use App\Models\Configuracion\AdminFirma;
 use App\Models\Configuracion\AreaComunale;
+use App\Models\Configuracion\Empleado;
 use App\Models\Configuracion\FirmaEmail;
 use App\Models\Configuracion\PresidenteTesorero;
+use App\Models\Configuracion\Proveedore;
+use App\Models\Configuracion\ProveedorEmpleado;
 use App\Models\Configuracion\Relacione;
 use App\Models\Configuracion\Secuenciale;
 use App\Models\Plan;
@@ -33,6 +36,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'confirmed_password',
         'role_id',
         'plan_id',
         'admin_id',
@@ -40,6 +44,8 @@ class User extends Authenticatable
         'en_inmuebles',
         'perm_modulos',
         'perm_acciones',
+        'inactivo',
+        'fecha_inactivo',
     ];
 
     /**
@@ -108,5 +114,17 @@ class User extends Authenticatable
     public function firmaEmails(): HasMany
     {
         return $this->hasMany(FirmaEmail::class);
+    }
+
+    // Relación: Un usuario puede tener muchos proveedores
+    public function proveedores(): HasMany
+    {
+        return $this->hasMany(Proveedore::class);
+    }
+
+    // Relación: Un usuario puede tener muchos empleados
+    public function empleados(): HasMany
+    {
+        return $this->hasMany(Empleado::class);
     }
 }

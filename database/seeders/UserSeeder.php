@@ -22,9 +22,12 @@ class UserSeeder extends Seeder
             'en_inmuebles' => null,
             'perm_modulos' => null,
             'perm_acciones' => null,
+            'inactivo' => 'NO',
+            'fecha_inactivo' => null,
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
-            'remember_token' => Str::random(10),
+            'confirmed_password' => bcrypt('password'),
+            'remember_token' => null,
         ])->assignRole('SuperAdmin');
     }
 }
