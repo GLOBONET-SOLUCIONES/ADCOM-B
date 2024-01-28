@@ -13,6 +13,7 @@ use App\Models\Configuracion\Proveedore;
 use App\Models\Configuracion\Secuenciale;
 use App\Models\Configuracion\AreaComunale;
 use App\Models\Configuracion\PresidenteTesorero;
+use App\Models\Plancuentas\PlanCuenta;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,6 +56,13 @@ class Condominio extends Model
     public function condominios(): HasMany
     {
         return $this->hasMany(Inmueble::class);
+    }
+
+
+    // Relación: Un condominio tiene muchos planes de cuenta
+    public function plancuentas(): HasMany
+    {
+        return $this->hasMany(PlanCuenta::class);
     }
 
     // // Relación: Un condominio puede tener muchas relaciones familiares

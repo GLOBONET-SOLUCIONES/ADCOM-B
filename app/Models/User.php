@@ -4,20 +4,21 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Condominios\Condominio;
-use App\Models\Configuracion\AdminFirma;
-use App\Models\Configuracion\AreaComunale;
+
 use App\Models\Configuracion\Empleado;
-use App\Models\Configuracion\FirmaEmail;
-use App\Models\Configuracion\PresidenteTesorero;
 use App\Models\Configuracion\Proveedore;
-use App\Models\Configuracion\ProveedorEmpleado;
-use App\Models\Configuracion\Relacione;
-use App\Models\Configuracion\Secuenciale;
 use App\Models\Plan;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Condominios\Condominio;
+use App\Models\Plancuentas\PlanCuenta;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Configuracion\Relacione;
+use App\Models\Configuracion\AdminFirma;
+use App\Models\Configuracion\FirmaEmail;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Configuracion\Secuenciale;
+use App\Models\Configuracion\AreaComunale;
+use App\Models\Configuracion\PresidenteTesorero;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -72,6 +73,12 @@ class User extends Authenticatable
     public function condominios(): HasMany
     {
         return $this->hasMany(Condominio::class);
+    }
+
+    // Relación: Un Usuario tiene muchos planes de cuenta
+    public function plancuentas(): HasMany
+    {
+        return $this->hasMany(PlanCuenta::class);
     }
 
     // Relación: Un usuario puede tener muchos planes
