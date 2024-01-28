@@ -4,10 +4,12 @@ namespace App\Models\Condominios;
 
 use App\Models\User;
 use App\Models\Inmueble\Inmueble;
+use App\Models\Configuracion\Empleado;
 use App\Models\Configuracion\Relacione;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Configuracion\AdminFirma;
 use App\Models\Configuracion\FirmaEmail;
+use App\Models\Configuracion\Proveedore;
 use App\Models\Configuracion\Secuenciale;
 use App\Models\Configuracion\AreaComunale;
 use App\Models\Configuracion\PresidenteTesorero;
@@ -97,5 +99,17 @@ class Condominio extends Model
     public function firmaEmails(): HasMany
     {
         return $this->hasMany(FirmaEmail::class);
+    }
+
+    // Relación: Un usuario puede tener muchos proveedores
+    public function proveedores(): HasMany
+    {
+        return $this->hasMany(Proveedore::class);
+    }
+
+    // Relación: Un usuario puede tener muchos empleados
+    public function empleados(): HasMany
+    {
+        return $this->hasMany(Empleado::class);
     }
 }

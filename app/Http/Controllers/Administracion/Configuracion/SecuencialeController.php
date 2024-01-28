@@ -60,7 +60,7 @@ class SecuencialeController extends Controller
             $existSecuencia = Secuenciale::where('condominio_id', $request->condominio_id)->first();
 
             if ($existSecuencia && !$request->id) {
-                return response()->json(['message' => 'Ya existe una secuencia para esta propiedad, edite la información.'], 403);
+                return response()->json(['message' => 'Ya existe una secuencia para la propiedad ' . $propiedad->name_condominio . ', edite la información.'], 403);
             }
 
             $secDocumentos = new Secuenciale();

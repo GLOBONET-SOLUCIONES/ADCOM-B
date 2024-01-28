@@ -56,6 +56,13 @@ class FirmaEmailController extends Controller
         if ($request->id) {
             $firmaEmail = FirmaEmail::find($request->id);
         } else {
+
+            $existFirmaEmail = FirmaEmail::where('condominio_id', $request->condominio_id)->first();
+
+            if ($existFirmaEmail && !$request->id) {
+                return response()->json(['message' => 'Ya existe una firma e-mail registrada en la propiedad ' . $propiedad->name_condominio . ', edite la información.'], 403);
+            }
+
             $firmaEmail = new FirmaEmail();
         }
 

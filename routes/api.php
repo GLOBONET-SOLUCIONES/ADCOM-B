@@ -17,6 +17,8 @@ use App\Http\Controllers\Administracion\Inmueble\ResidenteController;
 use App\Http\Controllers\Administracion\Inmueble\PropietarioController;
 use App\Http\Controllers\Administracion\Condominios\CondominioController;
 use App\Http\Controllers\Administracion\PlanCuentas\PlanCuentasController;
+use App\Http\Controllers\Administracion\Configuracion\EmpleadoController;
+use App\Http\Controllers\Administracion\Configuracion\ProveedoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,4 +96,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Rutas Plan de cuentas
     Route::apiResource('plancuentas', PlanCuentasController::class);
+
+    // Rutas Proveedores
+    Route::apiResource('proveedores', ProveedoreController::class);
+
+    // Rutas Empleados
+    Route::apiResource('empleados', EmpleadoController::class);
 });

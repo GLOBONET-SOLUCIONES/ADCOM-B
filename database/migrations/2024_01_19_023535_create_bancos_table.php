@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('banco')->nullable();
             $table->string('cuenta')->nullable();
             $table->decimal('saldo_inicial')->nullable();
+            $table->enum('predeterminado', ['SI', 'NO'])->default('NO');
             $table->timestamps();
         });
     }

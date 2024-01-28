@@ -28,6 +28,7 @@ class InmuebleController extends Controller
 
         $inmuebles = Inmueble::join('propietarios', 'inmuebles.propietario_id', '=', 'propietarios.id')
             ->join('residentes', 'inmuebles.residente_id', '=', 'residentes.id')
+            ->where('condominio_id', $request->condominio_id)
             ->select('inmuebles.*', 'propietarios.name_propietario', 'residentes.name_residente')
             ->get();
 

@@ -18,12 +18,15 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password');
+            $table->string('confirmed_password');
             $table->string('en_condominios')->nullable();
             $table->string('en_inmuebles')->nullable();
             $table->string('perm_modulos')->nullable();
             $table->string('perm_acciones')->nullable();
+            $table->enum('inactivo', ['SI', 'NO'])->default('NO');
+            $table->date('fecha_inactivo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

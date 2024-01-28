@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('firma_electronica')->nullable();
             $table->string('clave_firma')->nullable();
             $table->string('logo')->nullable();
+            $table->decimal('reserva_legal_actual')->default(0.00);
             $table->timestamps();
         });
     }

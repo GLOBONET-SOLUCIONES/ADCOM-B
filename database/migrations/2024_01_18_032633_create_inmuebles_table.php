@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name_inmueble');
             $table->foreignId('condominio_id')->constrained();
             $table->integer('plantas');
-            $table->decimal('alicuotas');
+            $table->decimal('alicuotas', 8, 4);
             $table->decimal('expensas');
             $table->foreignId('propietario_id')->constrained();
             $table->foreignId('residente_id')->constrained();

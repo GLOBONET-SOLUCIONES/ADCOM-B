@@ -52,6 +52,12 @@ class AdminFirmaController extends Controller
         if ($request->id) {
             $firmaAdmin = AdminFirma::find($request->id);
         } else {
+            $existFirmaAdmin = AdminFirma::where('condominio_id', $request->condominio_id)->first();
+
+            if ($existFirmaAdmin && !$request->id) {
+                return response()->json(['message' => 'Ya existe una firma para este administrador en la propiedad ' . $propiedad->name_condominio . ', edite la información.'], 403);
+            }
+
             $firmaAdmin = new AdminFirma();
         }
 
