@@ -56,6 +56,7 @@ class CondominioController extends Controller
             'firma_electronica' => 'nullable',
             'clave_firma' => 'nullable',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg',
+            'reserva_legal_actual' => 'nullable',
 
         ]);
 
@@ -92,6 +93,7 @@ class CondominioController extends Controller
             $condominios->obligado = $request->obligado;
             $condominios->ruc_contador = $request->ruc_contador;
             $condominios->nombre_contador = $request->nombre_contador;
+            $condominios->reserva_legal_actual = $request->reserva_legal_actual;
             if ($request->hasFile('firma_electronica')) {
 
                 $firmaPath = $request->file('firma_electronica')->store('firmas', 'public');

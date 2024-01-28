@@ -50,6 +50,7 @@ class BancoController extends Controller
             'banco' => 'required|string',
             'cuenta' => 'required|string',
             'saldo_inicial' => 'required',
+            'predeterminado' => 'required|in:SI,NO',
         ]);
 
 
@@ -59,13 +60,24 @@ class BancoController extends Controller
             $bancos = new Banco();
         }
 
+        if ($request->predeterminado == 'SI') {
+            // Verificar si el banco actual ya está marcado como predeterminado
+            if ($bancos->predeterminado != 'SI') {
+                // Actualizar cualquier banco predeterminado existente a "NO" para esta propiedad
+                Banco::where('condominio_id', $request->condominio_id)
+                     ->where('predeterminado', 'SI')
+                     ->where('id', '!=', $bancos->id) // No incluir el banco actual en la actualización
+                     ->update(['predeterminado' => 'NO']);
+            }
+        }
+
         $bancos->user_id = $user->admin_id;
         $bancos->condominio_id = $request->condominio_id;
         $bancos->fecha_registro = Carbon::createFromFormat('d/m/Y', $request->fecha_registro)->format('Y-m-d');
         $bancos->banco = $request->banco;
         $bancos->cuenta = $request->cuenta;
         $bancos->saldo_inicial = $request->saldo_inicial;
-
+        $bancos->predeterminado = $request->predeterminado;
 
         $bancos->save();
 
