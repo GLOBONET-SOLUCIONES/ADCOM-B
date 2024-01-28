@@ -36,41 +36,84 @@ class PlanCuentasController extends Controller
 
 
 
+    // public function store(Request $request)
+    // {
+    //     $user = auth()->user();
+
+    //     $adminPropiedades = Condominio::where('user_id', $user->admin_id)->get();
+
+    //     // Verifica si 'adminPropiedades' pertenece a una de las propiedades del administrador
+    //     $propiedad = $adminPropiedades->find($request->condominio_id);
+
+    //     if (!$propiedad) {
+    //         return response()->json(['message' => 'Debe seleccionar una Propiedad.'], 403);
+    //     }
+
+    //     $this->validate($request, [
+    //         'condominio_id' => 'required',
+    //         'codigo' => 'required',
+    //         'nombre_cuenta' => 'required',
+    //         'grupo_contable' => 'required|in:ACTIVO,PASIVO,PATRIMONIO,INGRESOS,EGRESOS,GASTOS',
+    //         'cuenta_superior' => 'nullable',
+    //         'superior_id' => 'nullable',
+    //         'saldo_actual' => 'required',
+    //     ]);
+
+    //     // Obtener el registro seleccionado
+    //     $registroSeleccionado = PlanCuenta::find($request->superior_id);
+
+    //     if ($registroSeleccionado->cuenta_superior == 0) {
+    //         // Si cuenta_superior es 0 en el registro seleccionado, establecer cuenta_superior = 1 en el nuevo registro
+    //         $request->merge(['cuenta_superior' => 1]);
+    //     } else {
+    //         // Si cuenta_superior es 1 en el registro seleccionado, invertir cuenta_superior y ajustar en ambos registros
+    //         $registroSeleccionado->cuenta_superior = 0;
+    //         $registroSeleccionado->save();
+    //         $request->merge(['cuenta_superior' => 1]);
+    //     }
+
+    //     if ($request->id) {
+    //         $plancuentas = PlanCuenta::find($request->id);
+    //     } else {
+    //         $plancuentas = new PlanCuenta();
+    //     }
+
+
+    //     if ($registroSeleccionado->cuenta_superior == 0) {
+
+    //         $plancuentas->cuenta_superior = 1;
+    //         // dd($cuentaSuperior);
+
+    //     } else {
+
+    //         $registroSeleccionado->cuenta_superior = 0;
+    //         $registroSeleccionado->save();
+    //         $plancuentas->cuenta_superior = 1;
+    //     }
+
+    //     $plancuentas->user_id = $user->admin_id;
+    //     $plancuentas->condominio_id = $request->condominio_id;
+    //     $plancuentas->codigo = $request->codigo;
+    //     $plancuentas->nombre_cuenta = $request->nombre_cuenta;
+    //     $plancuentas->grupo_contable = $request->grupo_contable;
+    //     // $plancuentas->cuenta_superior = $$plancuentas->cuenta_superior;
+    //     $plancuentas->superior_id = $registroSeleccionado->id;
+    //     $plancuentas->saldo_actual = $request->saldo_actual;
+    //     $plancuentas->save();
+
+    //     return response()->json([
+    //         'message' => 'El registro ha sido guardado correctamente',
+    //         'plancuentas' => $plancuentas,
+    //     ]);
+    // }
+
     public function store(Request $request)
     {
-
-        //         public function store(Request $request)
-        // {
-        //     // ... (código previo)
-
-        //     $lastPlanCuenta = <link>PlanCuenta</link>::orderBy('id', 'desc')->first(); // Obtener el último registro de <link>PlanCuenta</link>
-
-        //     if ($lastPlanCuenta) {
-        //         if ($lastPlanCuenta->cuenta_superior == 0) {
-        //             $request->merge(['cuenta_superior' => 1]); // Si el campo cuenta_superior del último registro es 0, cambia a 1
-        //         } else {
-        //             $lastPlanCuenta->cuenta_superior = 0; // Si el campo cuenta_superior del último registro es 1, cámbialo a 0
-        //             $lastPlanCuenta->save();
-        //         }
-        //     }
-
-        //     $this->validate($request, [
-        //         'condominio_id' => 'required',
-        //         'codigo' => 'required',
-        //         'nombre_cuenta' => 'required',
-        //         'grupo_contable' => 'required|in:ACTIVO,PASIVO,PATRIMONIO,INGRESOS,EGRESOS,GASTOS',
-        //         'cuenta_superior' => 'required',
-        //         'superior_id' => 'required',
-        //         'saldo_actual' => 'required',
-        //     ]);
-
-        //     // Resto del código para guardar el registro
-        // }
         $user = auth()->user();
 
         $adminPropiedades = Condominio::where('user_id', $user->admin_id)->get();
 
-        // Verifica si el 'adminPropiedades' pertenece a una de las propiedades del administrador
+        // Verifica si 'adminPropiedades' pertenece a una de las propiedades del administrador
         $propiedad = $adminPropiedades->find($request->condominio_id);
 
         if (!$propiedad) {
@@ -82,11 +125,17 @@ class PlanCuentasController extends Controller
             'codigo' => 'required',
             'nombre_cuenta' => 'required',
             'grupo_contable' => 'required|in:ACTIVO,PASIVO,PATRIMONIO,INGRESOS,EGRESOS,GASTOS',
-            'cuenta_superior' => 'required',
-            'superior_id' => 'required',
+            'cuenta_superior' => 'nullable',
+            'superior_id' => 'nullable',
             'saldo_actual' => 'required',
-
         ]);
+
+        // Obtener el registro seleccionado
+        $registroSeleccionado = PlanCuenta::find($request->superior_id);
+
+        if (!$registroSeleccionado) {
+            return response()->json(['message' => 'Registro seleccionado no encontrado.'], 404);
+        }
 
         if ($request->id) {
             $plancuentas = PlanCuenta::find($request->id);
@@ -94,23 +143,23 @@ class PlanCuentasController extends Controller
             $plancuentas = new PlanCuenta();
         }
 
-
-        // $planCuentasResponse = $this->index($request);
-        // $planCuentas = $planCuentasResponse->original['plancuentas'];
-
-        // foreach ($planCuentas as $plancuenta) {
-        //     $condominioId = $plancuenta->codigo;
-        // }
-        // dd($condominioId);
-
-        // $relaciones = Relacione::where('id', $request->relacion_propietario);
+        // Validar y ajustar cuenta_superior
+        if ($registroSeleccionado->cuenta_superior == 0) {
+            // Si cuenta_superior es 0 en el registro seleccionado, establecer cuenta_superior = 1 en el nuevo registro
+            $plancuentas->cuenta_superior = 1;
+        } else {
+            // Si cuenta_superior es 1 en el registro seleccionado, invertir cuenta_superior y ajustar en ambos registros
+            $plancuentas->cuenta_superior = 1;
+            $registroSeleccionado->cuenta_superior = 0;
+            $registroSeleccionado->save();
+        }
 
         $plancuentas->user_id = $user->admin_id;
         $plancuentas->condominio_id = $request->condominio_id;
         $plancuentas->codigo = $request->codigo;
         $plancuentas->nombre_cuenta = $request->nombre_cuenta;
         $plancuentas->grupo_contable = $request->grupo_contable;
-        $plancuentas->cuenta_superior = $request->cuenta_superior;
+        $plancuentas->superior_id = $registroSeleccionado->id;
         $plancuentas->saldo_actual = $request->saldo_actual;
         $plancuentas->save();
 
@@ -119,6 +168,7 @@ class PlanCuentasController extends Controller
             'plancuentas' => $plancuentas,
         ]);
     }
+
 
     public function show(string $id)
     {
@@ -131,15 +181,39 @@ class PlanCuentasController extends Controller
 
 
 
+
+
     public function destroy(string $id)
     {
+
         $plancuentas = PlanCuenta::find($id);
-        $plancuentas->delete();
 
 
-        return response()->json([
-            'message' => 'El registro ha sido eliminado correctamente',
-            'plancuen$plancuentas' => $plancuentas
-        ]);
+        if ($plancuentas) {
+
+            $superiorId = $plancuentas->superior_id;
+
+
+            $plancuentas->delete();
+
+
+            $registroSuperior = PlanCuenta::where('id', $superiorId)->first();
+
+
+            if ($registroSuperior) {
+
+                $registroSuperior->cuenta_superior = 0;
+                $registroSuperior->save();
+            }
+
+            return response()->json([
+                'message' => 'El registro ha sido eliminado correctamente',
+                'plancuentas' => $plancuentas
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'No se encontró el registro a eliminar'
+            ], 404);
+        }
     }
 }

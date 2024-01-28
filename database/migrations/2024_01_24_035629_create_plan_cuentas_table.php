@@ -22,7 +22,7 @@ return new class extends Migration
                 ['ACTIVO', 'PASIVO', 'PATRIMONIO', 'INGRESOS', 'EGRESOS', 'GASTOS']
             );
             $table->enum('cuenta_superior', ['0', '1'])->default('0');
-            $table->integer('superior_id');
+            $table->integer('superior_id')->nullable();
             $table->decimal('saldo_actual');
             $table->timestamps();
         });
