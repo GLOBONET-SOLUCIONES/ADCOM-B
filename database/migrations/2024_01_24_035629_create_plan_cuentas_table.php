@@ -17,11 +17,8 @@ return new class extends Migration
             $table->foreignId('condominio_id')->constrained();
             $table->string('codigo');
             $table->string('nombre_cuenta');
-            $table->enum(
-                'grupo_contable',
-                ['ACTIVO', 'PASIVO', 'PATRIMONIO', 'INGRESOS', 'EGRESOS', 'GASTOS']
-            );
-            $table->enum('cuenta_superior', ['0', '1'])->default('0');
+            $table->enum('grupo_contable', ['ACTIVO', 'PASIVO', 'PATRIMONIO', 'INGRESOS', 'EGRESOS', 'GASTOS']);
+            $table->integer('cuenta_superior');
             $table->integer('superior_id')->nullable();
             $table->decimal('saldo_actual');
             $table->timestamps();
