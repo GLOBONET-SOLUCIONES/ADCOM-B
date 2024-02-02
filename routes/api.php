@@ -20,7 +20,7 @@ use App\Http\Controllers\Administracion\PlanCuentas\PlanCuentasController;
 use App\Http\Controllers\Administracion\Configuracion\EmpleadoController;
 use App\Http\Controllers\Administracion\Configuracion\ProveedoreController;
 use App\Http\Controllers\Administracion\Publicidad\UnoPublicidadControlller;
-use App\Models\Publicidad\UnoPublicidade;
+use App\Http\Controllers\Facturacion\FacturacionSecuenciaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,4 +107,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Rutas Publicidad
     Route::apiResource('uno-publicidades', UnoPublicidadControlller::class);
+
+    // Rutas Facturacion Electronica
+    Route::apiResource('facturacion-secuencias', FacturacionSecuenciaController::class);
+
 });

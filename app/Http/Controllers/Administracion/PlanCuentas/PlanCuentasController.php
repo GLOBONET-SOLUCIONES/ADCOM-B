@@ -72,6 +72,7 @@ class PlanCuentasController extends Controller
             $request->merge(['cuenta_superior' => 1]);
         }
 
+
         if ($request->id) {
             $plancuentas = PlanCuenta::find($request->id);
         } else {
@@ -82,8 +83,6 @@ class PlanCuentasController extends Controller
         if ($registroSeleccionado->cuenta_superior == 0) {
 
             $plancuentas->cuenta_superior = 1;
-            // dd($cuentaSuperior);
-
         } else {
 
             $registroSeleccionado->cuenta_superior = 0;
@@ -91,12 +90,28 @@ class PlanCuentasController extends Controller
             $plancuentas->cuenta_superior = 1;
         }
 
+
+        // Verificar que el codigo de cuenta no se repita
+        $consultas = PlanCuenta::where('user_id', $user->admin_id)
+            ->where('condominio_id', $request->condominio_id)
+            ->where('superior_id', $request->superior_id)
+            ->get();
+
+        foreach ($consultas as $consulta) {
+           $consultaCodigo = $consulta->codigo;
+
+           if ($consultaCodigo === $request->codigo) {
+               return response()->json(['message' => 'Ya existe un registro con el número de cuenta, ' . $consulta->codigo . ' elija otro código.'], 403);
+           }
+        }
+
+
+
         $plancuentas->user_id = $user->admin_id;
         $plancuentas->condominio_id = $request->condominio_id;
         $plancuentas->codigo = $request->codigo;
         $plancuentas->nombre_cuenta = $request->nombre_cuenta;
         $plancuentas->grupo_contable = $request->grupo_contable;
-        // $plancuentas->cuenta_superior = $$plancuentas->cuenta_superior;
         $plancuentas->superior_id = $registroSeleccionado->id;
         $plancuentas->saldo_actual = $request->saldo_actual;
         $plancuentas->save();
@@ -126,24 +141,26 @@ class PlanCuentasController extends Controller
     {
 
         $plancuentas = PlanCuenta::find($id);
-
-
+        
+        
         if ($plancuentas) {
-
+            
             $superiorId = $plancuentas->superior_id;
-
-
+            $cuentaSuperior = PlanCuenta::find($superiorId);
+            
             $plancuentas->delete();
-
-
-            $registroSuperior = PlanCuenta::where('id', $superiorId)->first();
-
-
-            if ($registroSuperior) {
-
-                $registroSuperior->cuenta_superior = 0;
-                $registroSuperior->save();
+            
+            
+            $existRegistro = PlanCuenta::where('superior_id', $superiorId)->first();
+            
+            
+            if ($existRegistro) {
+                $cuentaSuperior->cuenta_superior = 0;
+            } else {
+                $cuentaSuperior->cuenta_superior = 1;
             }
+
+            $cuentaSuperior->save();
 
             return response()->json([
                 'message' => 'El registro ha sido eliminado correctamente',

@@ -28,6 +28,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('secuenciales', function (Blueprint $table) {
+
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['condominio_id']);
+        });
+
         Schema::dropIfExists('secuenciales');
     }
 };

@@ -20,6 +20,7 @@ use App\Models\Configuracion\Secuenciale;
 use App\Models\Configuracion\AreaComunale;
 use App\Models\Configuracion\PresidenteTesorero;
 use App\Models\Publicidad\UnoPublicidade;
+use App\Models\Facturacion\FacturacionSecuencia;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -140,5 +141,11 @@ class User extends Authenticatable
     public function unoPublicidades(): HasMany
     {
         return $this->hasMany(UnoPublicidade::class);
+    }
+  
+    // Relación: Un usuario puede tener muchas secuencias en facturacion
+    public function facturacionSecuencias(): HasMany
+    {
+        return $this->hasMany(FacturacionSecuencia::class);
     }
 }
