@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Configuracion\Secuenciale;
 use App\Models\Configuracion\AreaComunale;
 use App\Models\Configuracion\PresidenteTesorero;
+use App\Models\Publicidad\UnoPublicidade;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -133,5 +134,11 @@ class User extends Authenticatable
     public function empleados(): HasMany
     {
         return $this->hasMany(Empleado::class);
+    }
+
+    // Relación: Un administrador puede tener muchas publicidades
+    public function unoPublicidades(): HasMany
+    {
+        return $this->hasMany(UnoPublicidade::class);
     }
 }
