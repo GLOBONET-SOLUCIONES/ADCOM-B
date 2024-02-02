@@ -13,6 +13,7 @@ use App\Models\Configuracion\Proveedore;
 use App\Models\Configuracion\Secuenciale;
 use App\Models\Configuracion\AreaComunale;
 use App\Models\Configuracion\PresidenteTesorero;
+use App\Models\Facturacion\FacturacionSecuencia;
 use App\Models\Plancuentas\PlanCuenta;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -101,15 +102,21 @@ class Condominio extends Model
         return $this->hasMany(FirmaEmail::class);
     }
 
-    // Relación: Un usuario puede tener muchos proveedores
+    // Relación: Un condominio puede tener muchos proveedores
     public function proveedores(): HasMany
     {
         return $this->hasMany(Proveedore::class);
     }
 
-    // Relación: Un usuario puede tener muchos empleados
+    // Relación: Un condominio puede tener muchos empleados
     public function empleados(): HasMany
     {
         return $this->hasMany(Empleado::class);
+    }
+
+    // Relación: Un condominio puede tener muchas secuencias en facturacion
+    public function facturacionSecuencias(): HasMany
+    {
+        return $this->hasMany(FacturacionSecuencia::class);
     }
 }

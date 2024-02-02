@@ -19,6 +19,7 @@ use App\Http\Controllers\Administracion\Condominios\CondominioController;
 use App\Http\Controllers\Administracion\PlanCuentas\PlanCuentasController;
 use App\Http\Controllers\Administracion\Configuracion\EmpleadoController;
 use App\Http\Controllers\Administracion\Configuracion\ProveedoreController;
+use App\Http\Controllers\Facturacion\FacturacionSecuenciaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,4 +103,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Rutas Empleados
     Route::apiResource('empleados', EmpleadoController::class);
+
+    // Rutas Facturacion Electronica
+    Route::apiResource('facturacion-secuencias', FacturacionSecuenciaController::class);
 });

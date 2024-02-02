@@ -69,6 +69,18 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'editar_firma_admin_email'])->syncRoles([$superadmin, $admin]);
         Permission::create(['name' => 'eliminar_firma_admin_email'])->syncRoles([$superadmin, $admin]);
 
+        // Permisos Inmuebles
+        Permission::create(['name' => 'listar_inmuebles'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_inmuebles'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_inmuebles'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_inmuebles'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Plan de Cuentas
+        Permission::create(['name' => 'listar_plan_cuentas'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_plan_cuentas'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_plan_cuentas'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_plan_cuentas'])->syncRoles([$superadmin, $admin]);
+
         // Permisos Proveedores
         Permission::create(['name' => 'listar_proveedores'])->syncRoles([$superadmin, $admin]);
         Permission::create(['name' => 'crear_proveedores'])->syncRoles([$superadmin, $admin]);
@@ -80,5 +92,17 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'crear_empleados'])->syncRoles([$superadmin, $admin]);
         Permission::create(['name' => 'editar_empleados'])->syncRoles([$superadmin, $admin]);
         Permission::create(['name' => 'eliminar_empleados'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Usuarios del Sistema
+        Permission::create(['name' => 'listar_usuarios'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_usuarios'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_usuarios'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_usuarios'])->syncRoles([$superadmin, $admin]);
+
+        // Permisos Facturacion Electronica (Estab, Puntos y Secuencias)
+        Permission::create(['name' => 'listar_establecimientos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'crear_establecimientos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'editar_establecimientos'])->syncRoles([$superadmin, $admin]);
+        Permission::create(['name' => 'eliminar_establecimientos'])->syncRoles([$superadmin, $admin]);
     }
 }
