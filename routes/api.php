@@ -19,6 +19,8 @@ use App\Http\Controllers\Administracion\Condominios\CondominioController;
 use App\Http\Controllers\Administracion\PlanCuentas\PlanCuentasController;
 use App\Http\Controllers\Administracion\Configuracion\EmpleadoController;
 use App\Http\Controllers\Administracion\Configuracion\ProveedoreController;
+use App\Http\Controllers\Administracion\Publicidad\DosPublicidadController;
+use App\Http\Controllers\Administracion\Publicidad\TresPublicidadController;
 use App\Http\Controllers\Administracion\Publicidad\UnoPublicidadControlller;
 use App\Http\Controllers\Facturacion\FacturacionSecuenciaController;
 
@@ -108,7 +110,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Rutas Publicidad
     Route::apiResource('uno-publicidades', UnoPublicidadControlller::class);
 
+    Route::apiResource('dos-publicidades', DosPublicidadController::class);
+
+    Route::apiResource('tres-publicidades', TresPublicidadController::class);
+
     // Rutas Facturacion Electronica
     Route::apiResource('facturacion-secuencias', FacturacionSecuenciaController::class);
-
 });

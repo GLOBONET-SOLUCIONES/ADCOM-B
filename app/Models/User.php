@@ -5,22 +5,24 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 
-use App\Models\Configuracion\Empleado;
-use App\Models\Configuracion\Proveedore;
 use App\Models\Plan;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Condominios\Condominio;
+use App\Models\Configuracion\Empleado;
 use App\Models\Plancuentas\PlanCuenta;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Configuracion\Relacione;
 use App\Models\Configuracion\AdminFirma;
 use App\Models\Configuracion\FirmaEmail;
+use App\Models\Configuracion\Proveedore;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Configuracion\Secuenciale;
+use App\Models\Publicidad\DosPublicidade;
+use App\Models\Publicidad\UnoPublicidade;
 use App\Models\Configuracion\AreaComunale;
 use App\Models\Configuracion\PresidenteTesorero;
-use App\Models\Publicidad\UnoPublicidade;
 use App\Models\Facturacion\FacturacionSecuencia;
+use App\Models\Publicidad\TresPublicidade;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -142,7 +144,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(UnoPublicidade::class);
     }
-  
+
+    public function dosPublicidades(): HasMany
+    {
+        return $this->hasMany(DosPublicidade::class);
+    }
+
+    public function tresPublicidades(): HasMany
+    {
+        return $this->hasMany(TresPublicidade::class);
+    }
+
     // Relación: Un usuario puede tener muchas secuencias en facturacion
     public function facturacionSecuencias(): HasMany
     {

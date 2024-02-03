@@ -98,11 +98,11 @@ class PlanCuentasController extends Controller
             ->get();
 
         foreach ($consultas as $consulta) {
-           $consultaCodigo = $consulta->codigo;
+            $consultaCodigo = $consulta->codigo;
 
-           if ($consultaCodigo === $request->codigo) {
-               return response()->json(['message' => 'Ya existe un registro con el número de cuenta, ' . $consulta->codigo . ' elija otro código.'], 403);
-           }
+            if ($consultaCodigo === $request->codigo) {
+                return response()->json(['message' => 'Ya existe un registro con el número de cuenta, ' . $consulta->codigo . ' elija otro código.'], 403);
+            }
         }
 
 
@@ -141,19 +141,18 @@ class PlanCuentasController extends Controller
     {
 
         $plancuentas = PlanCuenta::find($id);
-        
-        
+
+
         if ($plancuentas) {
-            
+
             $superiorId = $plancuentas->superior_id;
             $cuentaSuperior = PlanCuenta::find($superiorId);
-            
+
             $plancuentas->delete();
-            
-            
+
             $existRegistro = PlanCuenta::where('superior_id', $superiorId)->first();
-            
-            
+
+
             if ($existRegistro) {
                 $cuentaSuperior->cuenta_superior = 0;
             } else {
