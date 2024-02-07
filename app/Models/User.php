@@ -155,6 +155,12 @@ class User extends Authenticatable
         return $this->hasMany(TresPublicidade::class);
     }
 
+    // Relación: Un administrador puede tener muchos inventaruis
+    public function inventarios(): HasMany
+    {
+        return $this->hasMany(UnoPublicidade::class);
+    }
+
     // Relación: Un usuario puede tener muchas secuencias en facturacion
     public function facturacionSecuencias(): HasMany
     {

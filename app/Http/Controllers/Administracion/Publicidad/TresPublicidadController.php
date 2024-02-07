@@ -60,27 +60,27 @@ class TresPublicidadController extends Controller
 
             if ($request->hasFile('publicidad_1')) {
 
-                $publicidades_1 = $request->file('publicidad_1')->store('publicidad/2publicidad', 'public');
+                $publicidades_1 = $request->file('publicidad_1')->store('publicidad/3publicidad', 'public');
                 $trespublicidad->publicidad_1 = $publicidades_1;
             }
             if ($request->hasFile('publicidad_2')) {
 
-                $publicidades_2 = $request->file('publicidad_2')->store('publicidad/2publicidad', 'public');
+                $publicidades_2 = $request->file('publicidad_2')->store('publicidad/3publicidad', 'public');
                 $trespublicidad->publicidad_2 = $publicidades_2;
             }
             if ($request->hasFile('publicidad_3')) {
 
-                $publicidades_3 = $request->file('publicidad_3')->store('publicidad/2publicidad', 'public');
+                $publicidades_3 = $request->file('publicidad_3')->store('publicidad/3publicidad', 'public');
                 $trespublicidad->publicidad_3 = $publicidades_3;
             }
             if ($request->hasFile('publicidad_4')) {
 
-                $publicidades_4 = $request->file('publicidad_4')->store('publicidad/2publicidad', 'public');
+                $publicidades_4 = $request->file('publicidad_4')->store('publicidad/3publicidad', 'public');
                 $trespublicidad->publicidad_4 = $publicidades_4;
             }
             if ($request->hasFile('publicidad_5')) {
 
-                $publicidades_5 = $request->file('publicidad_5')->store('publicidad/2publicidad', 'public');
+                $publicidades_5 = $request->file('publicidad_5')->store('publicidad/3publicidad', 'public');
                 $trespublicidad->publicidad_5 = $publicidades_5;
             }
             $trespublicidad->tiempo_publicidad = $request->tiempo_publicidad;

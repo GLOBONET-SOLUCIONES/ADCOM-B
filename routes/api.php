@@ -23,6 +23,7 @@ use App\Http\Controllers\Administracion\Publicidad\DosPublicidadController;
 use App\Http\Controllers\Administracion\Publicidad\TresPublicidadController;
 use App\Http\Controllers\Administracion\Publicidad\UnoPublicidadControlller;
 use App\Http\Controllers\Facturacion\FacturacionSecuenciaController;
+use App\Http\Controllers\Finanzas\Inventario\InventarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +114,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('dos-publicidades', DosPublicidadController::class);
 
     Route::apiResource('tres-publicidades', TresPublicidadController::class);
+
+    // Rutas Inventario
+    Route::apiResource('inventarios', InventarioController::class);
 
     // Rutas Facturacion Electronica
     Route::apiResource('facturacion-secuencias', FacturacionSecuenciaController::class);

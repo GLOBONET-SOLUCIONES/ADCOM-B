@@ -111,7 +111,7 @@ class UnoPublicidadControlller extends Controller
 
         return response()->json([
             'message' => 'El registro ha sido eliminado correctamente',
-            'unopublicidad$unopublicidad' => $unopublicidad
+            'unopublicidad' => $unopublicidad
         ]);
     }
 }
